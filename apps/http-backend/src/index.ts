@@ -5,11 +5,13 @@ import cors from "cors";
 import  {authUser}  from "./middleware/authUser.js";
 import jwt from "jsonwebtoken";
 import JWT_SECRET from "./config.js";
+import {createRoomSchema , createUserSchema , SigninSchema} from "../node_modules/@repo/common/src/types.js"
 
 app.use(cors());
 app.use(express.json());
 
 app.post("/signup", (req: Request, res: Response) => {
+      const parsedData = createUserSchema.safeParse(req.body);
      const { username, password } = req.body;
      if (!username || !password) {
            res.status(400).json({
